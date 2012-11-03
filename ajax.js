@@ -27,23 +27,25 @@ function fusion() {
         var rows = data['rows'];
         var ftData = document.getElementById('ft-data');
         for (var i in rows) {
-          var store = rows[i][0];
-          var address = rows[i][1];
-          var delivers = rows[i][2];
+          var date = rows[i][0];
+          var time = rows[i][1];
+          var description = rows[i][2];
+          var amount = rows[i][3];
+          var currency = rows[i][4];
           var dataElement = document.createElement('div');
-          var storeElement = document.createElement('p');
-          storeElement.innerHTML = store;
-          storeElement.className = 'store-name';
-          var addressElement = document.createElement('p');
-          addressElement.innerHTML = address;
-          addressElement.className = 'address';
-          var deliversElement = document.createElement('p');
-          deliversElement.innerHTML = 'Delivers? ' + delivers;
-          deliversElement.className = 'delivers';
+          var datetimeElement = document.createElement('p');
+          datetimeElement.innerHTML = date + ' '+ time;
+          datetimeElement.className = 'date-time';
+          var descElement = document.createElement('p');
+          descElement.innerHTML = description;
+          descElement.className = 'description';
+          var amountElement = document.createElement('p');
+          amountElement.innerHTML = amount + ' ' + currency;
+          amountElement.className = 'amount';
 
-          dataElement.appendChild(storeElement);
-          dataElement.appendChild(addressElement);
-          dataElement.appendChild(deliversElement);
+          dataElement.appendChild(datetimeElement);
+          dataElement.appendChild(descElement);
+          dataElement.appendChild(amountElement);
           ftData.appendChild(dataElement);
         }
       }
