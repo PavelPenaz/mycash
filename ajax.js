@@ -8,6 +8,50 @@
 var url = '/Skynax-WebService/SkynaxWebServiceJSON.asmx';   // Defines the URL of the Location Web Service (JSON)
 var timer1;
 
+function fusion() {
+    var query = "SELECT * FROM " +
+        '1pmTuw99m025LhvYdRxZGt4ZRy58FdFcEWaJoAzU';
+    var encodedQuery = encodeURIComponent(query);
+
+    // Construct the URL
+    var url = ['https://www.googleapis.com/fusiontables/v1/query'];
+    url.push('?sql=' + encodedQuery);
+    url.push('&key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ');
+    url.push('&callback=?');
+
+    // Send the JSONP request using jQuery
+    $.ajax({
+      url: url.join(''),
+      dataType: 'jsonp',
+      success: function (data) {
+        var rows = data['rows'];
+        var ftData = document.getElementById('ft-data');
+        for (var i in rows) {
+          var store = rows[i][0];
+          var address = rows[i][1];
+          var delivers = rows[i][2];
+          var dataElement = document.createElement('div');
+          var storeElement = document.createElement('p');
+          storeElement.innerHTML = store;
+          storeElement.className = 'store-name';
+          var addressElement = document.createElement('p');
+          addressElement.innerHTML = address;
+          addressElement.className = 'address';
+          var deliversElement = document.createElement('p');
+          deliversElement.innerHTML = 'Delivers? ' + delivers;
+          deliversElement.className = 'delivers';
+
+          dataElement.appendChild(storeElement);
+          dataElement.appendChild(addressElement);
+          dataElement.appendChild(deliversElement);
+          ftData.appendChild(dataElement);
+        }
+      }
+    });
+  }
+
+
+
 function InitInterval() {
     var Seconds = 5;
     if (Seconds > 0) {
@@ -66,6 +110,7 @@ function GenerateLabels() {
 
 
 function Initialize() {
+	fusion();
 }
 
 
